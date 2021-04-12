@@ -14,8 +14,9 @@ public class Solution {
                 dic[nums[index]] = new List<int>(index);
         }
         Dictionary<int, List<int>> secDictionary = new Dictionary<int,List<int>>();
-        int i = 0;
+        int i = -1;
         while(i < nums.Length - 2){
+            i++;
             var x = nums[i];
             
             if(secDictionary.TryGetValue(x, out List<int> secIndexList))
@@ -26,11 +27,13 @@ public class Solution {
                     if(secIndexList[0] > x && secIndexList[1] > x)
                         result.Add(new List<int>(){i, secIndexList[0], secIndexList[1] });
                     secCount++;
-                }                
+                }
+                continue;
             }
-            var j = i + 1;
+            var j = i;
             while(j < nums.Length -2)
             {
+                j++;
                 var y = nums[j];
                
                 var targetValue = 0 - x - y;
@@ -48,12 +51,11 @@ public class Solution {
                         
                         count++;
                     }
-                    
+                                        
                 }
-                j++;
+                
             }
-            
-            i++;
+           
         }
     return result;
     }
