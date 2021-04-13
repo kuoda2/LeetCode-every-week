@@ -3,62 +3,34 @@ public class Solution {
         var result = new List<IList<int>>();
         if(nums.Length < 3)
             return result;
-        Dictionary<int, List<int>> dic = new Dictionary<int,List<int>>();
-        int index = 0;
-        while(index < nums.Length - 1){
-            if(dic.TryGetValue(nums[index], out List<int> list))
-            {
-                list.Add(index);
-            }
-            else
-                dic[nums[index]] = new List<int>(index);
+        Array.Sort(nums);
+        
+        var len = nums.Length;
+        Dictionary<int, int> values = new Dictionary<int,int>();
+        int index = len - 1;
+        while(index >= 0){
+            if (!values.ContainsKey(nums[index]))
+                values.Add(nums[index], index);
+            index--;
         }
-        Dictionary<int, List<int>> secDictionary = new Dictionary<int,List<int>>();
-        int i = -1;
-        while(i < nums.Length - 2){
-            i++;
-            var x = nums[i];
-            
-            if(secDictionary.TryGetValue(x, out List<int> secIndexList))
-            {
-                int secCount = 0;
-                var secListLength = secIndexList.Count();
-                while(secCount < secListLength - 1){
-                    if(secIndexList[0] > x && secIndexList[1] > x)
-                        result.Add(new List<int>(){i, secIndexList[0], secIndexList[1] });
-                    secCount++;
-                }
+
+        for(int i = 0; i < len; i++){
+            if(i > 0 && nums[i-1] == nums[i])
                 continue;
-            }
-            var j = i;
-            while(j < nums.Length -2)
-            {
-                j++;
-                var y = nums[j];
-               
-                var targetValue = 0 - x - y;
-                if(dic.TryGetValue(targetValue, out List<int> indexList))
-                {
-                    var count = 0;
-                    var listLength = indexList.Count();
-                    while(count < listLength - 1)
-                    {
-                        if(indexList[count] > j)
-                        {
-                            result.Add(new List<int>(){i, j, indexList[count]});
-                            secDictionary[x] = new List<int>(){j, indexList[count]};
-                        }
-                        
-                        count++;
-                    }
-                                        
-                }
+            
+            for(int j = i + 1; j < len; j++){
+               if(j > i + 1 && nums[j-1] == nums[j])
+                    continue;
                 
+                var targetValue = 0 - nums[i] - nums[j];
+                if(values.ContainsKey(targetValue))
+                {
+                    var idx = values[targetValue];
+                    if(idx > i && idx > j)
+                        result.Add(new int[]{nums[i], nums[j] , nums[idx]});
+                }
             }
-           
         }
-    return result;
-    }
-    
-                   
+        return result;
+    }              
 }
