@@ -1,7 +1,8 @@
 public class Solution {
     public int[][] Merge(int[][] intervals) {
         HashSet<int>  overlapHashSet = new HashSet<int>();
-        
+        Comparer<int> comparer = Comparer<int>.Default;
+        Array.Sort(intervals,(x, y) => comparer.Compare(x[0], y[0]));
         for(int i = 0; i < intervals.Length - 1; i ++){
             if(intervals[i][1] >= intervals[i+1][0] && 
                (intervals[i+1][1] >= intervals[i][1] ||  intervals[i+1][1] >= intervals[i][0])){
