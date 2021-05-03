@@ -3,11 +3,13 @@ public class Solution {
         m -= 1;
         n -= 1;
         var min = Math.Min(m,n);
-        Console.Writeline(min);
         var sum = m + n;
-        var result  = GetFactorial(sum)/ GetFactorial(min) / GetFactorial(sum-min);
-        
-        return result;
+        var result  =  1.0m;
+        for(int i = min; i > 0; i--){
+            result = result * sum / i;
+            sum--;
+        }
+        return (int)Math.Round(result);
         
     }
     
