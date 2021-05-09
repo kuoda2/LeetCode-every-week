@@ -11,36 +11,33 @@
  *     }
  * }
  */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 public class Solution {
+    TreeNode last;
     public bool IsValidBST(TreeNode root) {
-        
-        if(Valid(root.left, root))
-            if(Valid(root.right, root))
-                return true;
-       return false;
+      return Validate(root, null, null);
     }
-    public bool Valid(TreeNode currNode, TreeNode lastNode){
-        
-        if(CheckLeft(currNode, lastNode)){
-            if(CheckRight(currNode, lastNode))
+      public bool Validate(TreeNode node, int? max, int? min)
+        {
+            if (node == null)
                 return true;
+            if (max != null && node.val >= max.Value || min != null && node.val <= min.Value)
+                return false;
+            else
+            {
+                return Validate(node.left, node.val, min) && Validate(node.right, max, node.val);
+            }
         }
-        return false;
-    }
-    
-    public bool CheckLeft(TreeNode node, TreeNode lastNode){
-        if(node == null || node.left == null)
-            return true;
-        if(node.val > node.left.val && lastNode.val < node.left.val)
-                return true;
-        return false;
-    }
-    
-    public bool CheckRight(TreeNode node, TreeNode lastNode){
-        if(node == null || node.right == null)
-            return true;
-        if(node.val < node.right.val && lastNode.val > node.right.val)
-            return true;
-        return false;
-    }
 }
