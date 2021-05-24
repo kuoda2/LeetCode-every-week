@@ -29,3 +29,49 @@ public class Solution {
          }
     }
 }
+public class Solution2 {
+    public void ReorderList(ListNode head) {
+        if (head == null || head.next == null)
+            return;
+
+        ListNode pre = null, slow = head, fast = head, l1 = head;
+
+        while (fast != null && fast.next != null)
+        {
+            pre = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        pre.next = null;
+
+        var l2 = Reverse(slow);
+
+        Merge(l1, l2);
+    }
+
+    public ListNode Reverse(ListNode head){
+        ListNode prev = null, curr = head, next = null;
+
+        while (curr != null)
+        {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    public void Merge(ListNode head1, ListNode head2){
+        while (head2 != null)
+        {
+            var next = head1.next;
+            head1.next = head2;
+            head1 = head1.next;
+            head2 = next;
+        }
+    
+    }
+}
