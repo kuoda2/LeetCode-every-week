@@ -11,6 +11,9 @@
  */
 public class Solution {
     public ListNode ReverseList(ListNode head) {
+        return ReverseList(head, null);
+    }
+    public ListNode ReverseListIteratively(ListNode head) {
          ListNode pre  = null;
          while (head != null)
          {
@@ -21,4 +24,12 @@ public class Solution {
          }
          return pre;
     }
-}
+    
+    public ListNode ReverseList(ListNode head, ListNode newHead){
+        if(head == null)
+            return newHead;
+        var next = head.next;
+        head.next = newHead;
+        return ReverseList(next, head);
+    }
+} 
