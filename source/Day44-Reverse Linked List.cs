@@ -11,21 +11,14 @@
  */
 public class Solution {
     public ListNode ReverseList(ListNode head) {
-        if(head == null)
-            return null;
-        if(head.next == null)
-            return head;
-        
-         ListNode pre = null;
+         ListNode pre  = null;
          while (head != null)
          {
              var next = head.next;
              head.next = pre;
-             if (next == null)
-                 break;
              pre = head;
              head = next;
          }
-         return head;
+         return pre;
     }
 }
