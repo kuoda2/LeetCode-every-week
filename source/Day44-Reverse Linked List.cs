@@ -32,4 +32,12 @@ public class Solution {
         head.next = newHead;
         return ReverseList(next, head);
     }
+    
+    public ListNode ReverseList2(ListNode head, ListNode preHead){
+        if(head == null)
+            return preHead;
+        var temp = head.next;
+        head.next = preHead;
+        return ReverseList2(temp, head);
+    }
 } 
