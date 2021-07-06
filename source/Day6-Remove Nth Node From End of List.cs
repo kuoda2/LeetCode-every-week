@@ -35,4 +35,41 @@ public class Solution {
         current.next = newNext;
         return head;    
     }
+    public ListNode Method2(ListNode head, int n){
+        if(head.next ==null)
+            return null;
+        Stack<ListNode> stack = new Stack<ListNode>();
+        var curr = head;
+        while(curr!=null){
+            stack.Push(curr);
+            curr = curr.next;
+        }
+        int i = 0;
+        ListNode toRemove = null;
+        while(i!=n){
+            i++;
+            toRemove = stack.Pop();
+        }
+        var next = toRemove.next;
+        if(stack.Count == 0)
+            return next;
+        var preNode = stack.Pop();
+        preNode.next = next;
+        return head;
+    }
+    public ListNode Method3(ListNode head, int n){
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode first = dummy;
+        ListNode second = dummy;
+        for(int i = 0; i <= n; i++){
+            first = first.next;
+        }
+        while(first != null){
+            first = first.next;
+            second = second.next;
+        }
+        second.next = second.next.next;
+        return dummy.next;
+    }
 }
