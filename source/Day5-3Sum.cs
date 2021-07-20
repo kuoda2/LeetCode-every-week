@@ -32,5 +32,39 @@ public class Solution {
             }
         }
         return result;
-    }              
+    }
+    public IList<IList<int>> ThreeSum2(int[] nums)
+        {
+            var result = new List<IList<int>>();
+            if (nums.Length < 3)
+                return result;
+            Array.Sort(nums);
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                // avoid duplicate
+                if (i > 0 && nums[i] == nums[i - 1])
+                    continue;
+                var left = i + 1;
+                var right = nums.Length - 1;
+                while (right > left)
+                {
+                    if (nums[i] + nums[left] + nums[right] > 0)
+                        right--;
+                    else if (nums[i] + nums[left] + nums[right] < 0)
+                        left++;
+                    else
+                    {
+                        result.Add(new[] { nums[i], nums[left], nums[right] });
+                        // avoid duplicate
+                        while (right > left && nums[right] == nums[right - 1]) right--;
+                        while (right > left && nums[left] == nums[left + 1]) left++;
+                        
+                        right--;
+                        left++;
+                    }
+                }
+            }
+            return result;
+        }
 }
