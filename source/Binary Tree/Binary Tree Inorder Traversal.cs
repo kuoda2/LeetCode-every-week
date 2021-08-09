@@ -11,6 +11,7 @@
  *     }
  * }
  */
+// Recursive
 public class Solution {
     public IList<int> InorderTraversal(TreeNode root) {
         var result = new List<int>();
@@ -22,5 +23,24 @@ public class Solution {
         Inorder(node.left, result);
         result.Add(node.val);
         Inorder(node.right, result);
+    }
+}
+
+// stack
+public class Solution2 {
+    public IList<int> InorderTraversal(TreeNode root) {
+        var result = new List<int>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        var currentNode = root;
+        while(currentNode != null || stack.Count > 0){
+            while(currentNode != null){
+                stack.Push(currentNode);
+                currentNode = currentNode.left;
+            }
+            currentNode = stack.Pop();
+            result.Add(currentNode.val);
+            currentNode = currentNode.right;
+        }
+        return result;
     }
 }
