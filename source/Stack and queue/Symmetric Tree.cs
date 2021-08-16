@@ -26,4 +26,35 @@ public class Solution {
         
         return IsSymmetric(node1.left, node2.right) && IsSymmetric(node1.right, node2.left);
     }
+   
+    // Runtime: 92 ms, faster than 80.09% of C# online submissions for Symmetric Tree.
+    // Memory Usage: 25.6 MB, less than 63.76% of C# online submissions for Symmetric Tree.
+   public bool IsSymmetricByQueue(TreeNode node){
+        if(node == null)
+            return true;
+        Queue<TreeNode> queue = new Queue<TreeNode>();
+        queue.Enqueue(node);
+        
+        while(queue.Count > 0){
+            var list = new List<int?>();
+            var count = queue.Count;
+            for(int i = 0; i < count; i++){
+                var currentNode = queue.Dequeue();
+                if(currentNode != null){
+                    list.Add(currentNode.val);
+                    queue.Enqueue(currentNode.left);
+                    queue.Enqueue(currentNode.right);
+                }
+                else
+                    list.Add(null);
+                // prevent [1,2,2,null,3,null,3]
+            }
+            
+            for(int i = 0; i < list.Count/2; i++){
+                if(list[i] != list[list.Count - 1 - i])
+                    return false;
+            }
+        }
+        return true;
+    }
 }
