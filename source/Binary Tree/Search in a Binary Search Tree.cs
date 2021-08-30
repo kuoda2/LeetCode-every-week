@@ -27,8 +27,8 @@ public class Solution {
     }
     
     // Recursion
-    // Runtime: 154 ms, faster than 14.17% of C# online submissions for Search in a Binary Search Tree.
-    // Memory Usage: 34.6 MB, less than 50.39% of C# online submissions for Search in a Binary Search Tree.
+    // Runtime: 112 ms, faster than 87.99% of C# online submissions for Search in a Binary Search Tree.
+    // Memory Usage: 34.9 MB, less than 7.09% of C# online submissions for Search in a Binary Search Tree.
     public TreeNode Recursion(TreeNode node, int val){
         if(node == null) return node;
         if(node.val == val){
