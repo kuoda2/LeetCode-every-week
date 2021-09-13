@@ -21,27 +21,9 @@ public class Solution {
         if(root.val < low)
             return TrimBST(root.right, low, high);
         
-        // check right
-        var curr = root;
-        while(curr.right != null){
-            if(curr.right.val > high)
-            {
-                curr.right = curr.right.left;
-            }
-            else
-                curr = curr.right;
-        }
-        
-        // check left
-        curr = root;
-        while(curr.left != null){
-            if(curr.left.val < low){
-                curr.left = curr.left.right;
-            }
-            else
-                curr = curr.left;
-        }
-        
+        root.left = TrimBST(root.left, low, high);
+        root.right = TrimBST(root.right, low, high);
+       
         return root;
     }
 }
