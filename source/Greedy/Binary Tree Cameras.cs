@@ -15,12 +15,19 @@ public class Solution {
     int result = 0;
     public int MinCameraCover(TreeNode root) {
         var rootVal = DFS(root);
+        // if no camera from child, then put a camera
         if(rootVal == -1)
             result++;
 
         return result;
     }
-    
+    //  Approach:-
+    //In DFS if the node is a leaf node, then return -1 to the parent
+    //If we have put a camera on the current node then return +1 to parent
+    //If we have not put a camera on the current node then return 0 to the parent
+    //If we received -1 from any of your children then put a camera
+    //If we received 1 from any of your children then don't put a camera
+    //If we received 0 from both the children then don't put a camera but return -1
     public int DFS(TreeNode node){
         if(node.left == null && node.right == null)
             return -1;
