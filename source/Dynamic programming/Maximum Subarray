@@ -1,0 +1,48 @@
+public class Solution {
+
+    public int MaxSubArray(int[] nums) {
+        int n = nums.Length;
+        if(n == 0)
+            return 0;
+        
+        int currMax = 0;
+        int max = int.MinValue;
+        for(int i = 0; i < n; i++){
+            currMax += nums[i];
+            currMax = Math.Max(currMax, nums[i]);
+            max = Math.Max(currMax, max);
+        }
+        return max;  
+    }
+    
+    //
+    public int MaxSubArray2(int[] nums) {
+        int sum = 0;
+        int result = int.MinValue;
+        for(int i = 0; i < nums.Length; i++){
+            sum+=nums[i];
+            result = Math.Max(result, sum);
+            if(sum <= 0)
+                sum = 0;
+        }
+        return result;
+    }
+    
+
+    //Runtime: 309 ms, faster than 18.89% of C# online submissions for Maximum Subarray.
+    //Memory Usage: 46.1 MB, less than 98.74% of C# online submissions for Maximum Subarray.
+    public int MaxSubArray3(int[] nums) {
+        var dp = new int[nums.Length];
+        
+        dp[0] = nums[0];
+        var result = dp[0];
+        for(int i = 1; i < nums.Length; i++){
+            dp[i] = Math.Max(dp[i-1] + nums[i], nums[i]);
+            if(dp[i] > result)
+                result = dp[i];
+        }
+        
+        return result;
+    }
+
+}
